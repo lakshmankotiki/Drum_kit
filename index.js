@@ -1,15 +1,26 @@
-/** DOM Event Listeners 
- * getting specific html elements using
- * DOM functions and adding click events and 
- * handling events by using handlers
-*/
+/** Detecting mouse click events using DOM and event listeners */
 var buttonLength = document.querySelectorAll(".drum").length;
 for (var i = 0; i < buttonLength; i++) {
     //displaying all the elements which is having drum class
     document.querySelectorAll(".drum")[i].addEventListener("click", function() {
         var buttonHTML = this.innerHTML;
-        var audio = new Audio();
-        switch (buttonHTML) {
+        keyPressEventHandler(buttonHTML);
+        buttonAnimation(buttonHTML);
+    });
+}
+
+
+/** Detecting keyboard press using DOM and event listeners */
+document.addEventListener("keypress", function(event) {
+    keyPressEventHandler(event.key);
+});
+
+
+//function to handle keyboard keys
+function keyPressEventHandler(key) {
+    buttonAnimation(key);
+    var audio = new Audio();
+        switch (key) {
             case "w":
                 audio.src = "sounds/tom-1.mp3";
                 audio.play();
@@ -41,36 +52,11 @@ for (var i = 0; i < buttonLength; i++) {
             default:
                 console.log(buttonHTML);
         }
-    });
 }
 
-/** captured the keybord press using keypress 
- * and handled using handler
- */
-document.addEventListener("keypress", keyPressEventHandler);
 
-function keyPressEventHandler(event) {
-    var audio = new Audio();
-    if(event.key === "w") {
-        audio.src = "sounds/tom-1.mp3";
-        audio.play();
-    } else if(event.key === "a") {
-        audio.src = "sounds/tom-2.mp3";
-        audio.play();
-    } else if(event.key === "s") {
-        audio.src = "sounds/tom-3.mp3";
-        audio.play();
-    } else if(event.key === "d") {
-        audio.src = "sounds/tom-4.mp3";
-        audio.play();
-    } else if(event.key === "j") {
-        audio.src = "sounds/crash.mp3";
-        audio.play();
-    } else if(event.key === "k") {
-        audio.src = "sounds/kick-bass.mp3";
-        audio.play();
-    } else if(event.key === "l") {
-        audio.src = "sounds/snare.mp3";
-        audio.play();
-    }
+/** function to apply animation when user click on buttons */
+function buttonAnimation(buttonKey) {
+    var activeButton = document.querySelector("."+buttonKey);
+    activeButton.classList.add("pressed");
 }
