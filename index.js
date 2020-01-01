@@ -32,6 +32,8 @@ for (var i = 0; i < buttonLength; i++) {
                 audio.src = "sounds/snare.mp3";
                 audio.play();
                 break;
+            default:
+                console.log(buttonHTML);
         }
     });
 }
